@@ -45,7 +45,8 @@ For example, for Apache Tomcat it is `web.xml`, for Eclipse Jetty - `webdefault.
     <url-pattern>/*</url-pattern>
 </filter-mapping>
 ```
-Set system properties or filter init parameters according to the table:
+
+Set system properties for the filter
 
 | Property                                   | Description                                                                                                                                                                                |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -56,6 +57,9 @@ Set system properties or filter init parameters according to the table:
 | com.sun.identity.agents.config.profilename | Agent name, for example: `myAgent`                                                                                                                                                         |
 
 Alternatively, you can set up the agent properties as init filter parameters.
+
+You can also create the `OpenSSOAgentBootstrap.properties` file with the agent properties and put it into your web container classpath directory.
+
 More info about J2EE agent parameters can be found in the [documentation](https://doc.openidentityplatform.org/openam/jee-users-guide/chap-jee-agent-config#configure-j2ee-policy-agent).
 
 
