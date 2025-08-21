@@ -38,22 +38,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmbeddedContainer_IT extends AbstractIntegrationTest {
 
-    @BeforeClass
-    public void setProperties() {
-        String resourceName = "embedded";
-
-        // Get the URL of the resource
-        URL resourceUrl = this.getClass().getClassLoader().getResource(resourceName);
-
-        if (resourceUrl != null) {
-            String absolutePath = resourceUrl.getPath();
-            System.out.println("Absolute path of '" + resourceName + "': " + absolutePath);
-            System.setProperty("openam.agents.bootstrap.dir", absolutePath);
-        } else {
-            throw new RuntimeException("resource not found");
-        }
-    }
-
     @Test
     public void testJetty() throws Exception {
         Server jetty = new Server(8081);
@@ -64,8 +48,6 @@ public class EmbeddedContainer_IT extends AbstractIntegrationTest {
 
         FilterHolder amFilterHolder = new FilterHolder(AmAgentFilter.class);
         amFilterHolder.setInitParameter("com.iplanet.am.naming.url", "http://openam.example.org:8080/openam/namingservice");
-        amFilterHolder.setInitParameter("com.sun.identity.agents.app.username", "amadmin");
-        amFilterHolder.setInitParameter("com.iplanet.am.service.secret", "passw0rd");
         amFilterHolder.setInitParameter("com.sun.identity.agents.config.profilename", "myAgent");
 
         context.addFilter(amFilterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
