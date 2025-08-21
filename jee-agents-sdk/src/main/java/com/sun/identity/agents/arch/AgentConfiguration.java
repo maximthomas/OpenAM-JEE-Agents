@@ -683,12 +683,17 @@ public class AgentConfiguration implements
     private static synchronized void bootStrapClientConfiguration() {
         if (!isInitialized()) {
             HashMap sysPropertyMap = null;
-            setConfigurationFilePath();
+
             try {
                 sysPropertyMap = new HashMap();
                 Properties properties = getProperties();
                 properties.clear();
-                properties.putAll(getPropertiesFromConfigFile());
+                try {
+                    setConfigurationFilePath();
+                    properties.putAll(getPropertiesFromConfigFile());
+                } catch (Exception e) {
+                    logWarning("loading properties from configuration file failed, using system properties");
+                }
                
                 //debug level can optionally be set in OpenSSOAgentBootstrap.properties
                 //but by default is not set, so we provide default if no value

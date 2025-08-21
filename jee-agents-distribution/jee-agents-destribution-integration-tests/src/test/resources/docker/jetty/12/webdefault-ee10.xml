@@ -6,6 +6,33 @@
         metadata-complete="false"
         version="6.0">
 
+    <filter>
+        <description>OpenAM JavaEE Policy Agent Filter</description>
+        <display-name>Agent</display-name>
+        <filter-name>Agent</filter-name>
+        <filter-class>com.sun.identity.agents.filter.AmAgentFilter</filter-class>
+        <init-param>
+            <param-name>com.iplanet.am.naming.url</param-name>
+            <param-value>http://openam.example.org:8080/openam/namingservice</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.identity.agents.app.username</param-name>
+            <param-value>amadmin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.iplanet.am.service.secret</param-name>
+            <param-value>passw0rd</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.identity.agents.config.profilename</param-name>
+            <param-value>myAgent</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Agent</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
     <!-- ===================================================================== -->
     <!-- This file contains the default descriptor for web applications.       -->
@@ -430,16 +457,6 @@
         </web-resource-collection>
     </security-constraint>
 
-    <filter>
-        <description>OpenAM JavaEE Policy Agent Filter</description>
-        <display-name>Agent</display-name>
-        <filter-name>Agent</filter-name>
-        <filter-class>com.sun.identity.agents.filter.AmAgentFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Agent</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
 </web-app>
 
