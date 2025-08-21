@@ -692,7 +692,7 @@ public class AgentConfiguration implements
                     setConfigurationFilePath();
                     properties.putAll(getPropertiesFromConfigFile());
                 } catch (Exception e) {
-                    logWarning("loading properties from configuration file failed, using system properties");
+                    System.err.println("WARNING: loading properties from configuration file failed, using system properties");
                 }
                
                 //debug level can optionally be set in OpenSSOAgentBootstrap.properties

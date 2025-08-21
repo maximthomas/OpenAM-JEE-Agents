@@ -6,17 +6,6 @@
         metadata-complete="false"
         version="6.0">
 
-    <filter>
-        <description>OpenAM JavaEE Policy Agent Filter</description>
-        <display-name>Agent</display-name>
-        <filter-name>Agent</filter-name>
-        <filter-class>com.sun.identity.agents.filter.AmAgentFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Agent</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
 
     <!-- ===================================================================== -->
     <!-- This file contains the default descriptor for web applications.       -->
@@ -441,6 +430,16 @@
         </web-resource-collection>
     </security-constraint>
 
+    <filter>
+        <description>OpenAM JavaEE Policy Agent Filter</description>
+        <display-name>Agent</display-name>
+        <filter-name>Agent</filter-name>
+        <filter-class>com.sun.identity.agents.filter.AmAgentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Agent</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 </web-app>
 

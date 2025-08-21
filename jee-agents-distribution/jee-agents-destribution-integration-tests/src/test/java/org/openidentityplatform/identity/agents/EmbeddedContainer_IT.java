@@ -25,10 +25,13 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.testcontainers.utility.MountableFile;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.http.HttpResponse;
 import java.util.EnumSet;
 
@@ -36,17 +39,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmbeddedContainer_IT extends AbstractIntegrationTest {
 
+
+
     @Test
     public void testJetty() throws Exception {
         Server jetty = new Server(8081);
-
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
         FilterHolder amFilterHolder = new FilterHolder(AmAgentFilter.class);
-//        amFilterHolder.setInitParameter("com.iplanet.am.naming.url", "http://openam.example.org:8080/openam/namingservice");
-//        amFilterHolder.setInitParameter("com.sun.identity.agents.config.profilename", "myAgent");
+        amFilterHolder.setInitParameter("com.iplanet.am.naming.url", "http://openam.example.org:8080/openam/namingservice");
+        amFilterHolder.setInitParameter("com.sun.identity.agents.app.username", "amadmin");
+        amFilterHolder.setInitParameter("com.iplanet.am.service.secret", "passw0rd");
+        amFilterHolder.setInitParameter("com.sun.identity.agents.config.profilename", "myAgent");
 
         context.addFilter(amFilterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
 
